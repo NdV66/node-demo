@@ -1,27 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const { readDataFromFile } = require('../../tools/TxtFileReader');
 
-const sendFileAsyncAsPlainText = (res, file, basePath) => {
-    const path = `${basePath}/${file}`;
-    const callback = data => res.send(data).toString();
-    const onError = () => res.status(500).send('Error');
-    readDataFromFile(path, callback, onError);
-};
-
-const getFilesizeInBytes = path => {
-    const stats = fs.statSync(path);
-    const fileSizeInBytes = stats['size'];
-    return fileSizeInBytes;
-};
-
-const getFilenames = (path, callback) => {
-    fs.readdir(path, (err, files) => {
-        const namedFiles = files.map(file => ({ name: file }));
-        callback(namedFiles);
-    });
-};
+const { sendFileAsyncAsPlainText, getFilenames, getFilenamesWithSizes, getFilesizeInBytes } = require('./helper');
 
 module.exports = basePath => {
     const FILE_A_RESPONSE = fs.readFileSync(`${basePath}/file-a.txt`).toString();
@@ -46,6 +27,11 @@ module.exports = basePath => {
     router.get('/filenames', (req, res) => {
         const callback = data => res.json(data);
         getFilenames(basePath, callback);
+    });
+
+    router.get('/sizes', (req, res) => {
+        const callback = data => res.json(data);
+        getFilenamesWithSizes(basePath, callback);
     });
 
     return router;
