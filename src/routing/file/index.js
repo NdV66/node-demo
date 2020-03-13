@@ -10,6 +10,12 @@ const sendFileAsyncAsPlainText = (res, file, basePath) => {
     readDataFromFile(path, callback, onError);
 };
 
+const getFilesizeInBytes = path => {
+    var stats = fs.statSync(path);
+    var fileSizeInBytes = stats['size'];
+    return fileSizeInBytes;
+};
+
 module.exports = basePath => {
     const FILE_A_RESPONSE = fs.readFileSync(`${basePath}/file-a.txt`).toString();
 
@@ -20,6 +26,14 @@ module.exports = basePath => {
     router.get('/file', (req, res) => {
         const fileName = req.query.name;
         sendFileAsyncAsPlainText(res, `${fileName}.txt`, basePath);
+    });
+
+    router.get('/size', (req, res) => {
+        const fileName = req.query.name;
+        const path = `${basePath}/${fileName}`;
+        const size = getFilesizeInBytes(path);
+
+        res.json({ size });
     });
 
     return router;
