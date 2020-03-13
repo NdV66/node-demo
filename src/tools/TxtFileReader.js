@@ -6,6 +6,7 @@ const defaultOnError = err => console.log(err);
 const readDataFromFile = (path, callback, onError = defaultOnError) => {
     fs.readFile(path, 'utf8', (err, data) => {
         if (err) {
+            console.log(err);
             onError(err);
         } else {
             callback(data);
