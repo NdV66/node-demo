@@ -24,4 +24,14 @@ router.get('/:id', (req, res) => {
     data ? res.json(data) : sendError(res);
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    if (DB.has(id)) {
+        DB.delete(id);
+        sendOk(res);
+    } else {
+        sendError(res);
+    }
+});
+
 module.exports = router;
