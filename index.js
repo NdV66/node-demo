@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const testRouter = require('./src/routing/test');
+const bodyParser = require('body-parser');
 
 const FILE_API_BASE_PATH = __dirname + '/data/files';
 const STRINGS_PATH = __dirname + '/data/scripts';
@@ -13,11 +14,13 @@ const dataRouter = require('./src/routing/data');
 const { readPortFromTxtFile } = require('./src/tools/TxtFileReader');
 
 const setupApp = port => {
+    app.use(bodyParser.json());
+
     app.use('/', testRouter);
     app.use('/', fileRouter);
     app.use('/', jsonRouter);
     app.use('/', stringsRouter);
-    app.use('/', dataRouter);
+    app.use('/data', dataRouter);
 
     app.listen(port, () => console.log(`Node demo is listing on port: ${port}!`));
 };
