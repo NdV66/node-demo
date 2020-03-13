@@ -1,1 +1,1 @@
-File-b :)
+Contents of file-b.txt

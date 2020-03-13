@@ -1,1 +1,6 @@
-{ "json": "here - b" }
+{
+    "data": {
+        "values": [1, 2, 3],
+        "file": "json-b.json"
+    }
+}
