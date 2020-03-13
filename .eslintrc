@@ -1,0 +1,78 @@
+{
+    "parser": "babel-eslint",
+    "extends": ["react-app", "eslint:recommended", "plugin:react/recommended"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "plugins": ["react", "simple-import-sort", "prettier"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "globals": {
+        "fixture": false,
+        "test": false
+    },
+    "rules": {
+        "sort-imports": "off",
+        "arrow-parens": ["error", "always"],
+        "max-len": [
+            "error",
+            {
+                "code": 120
+            }
+        ],
+        "import/order": "off",
+        "simple-import-sort/sort": "error",
+        "eol-last": ["warn", "always"],
+        "quotes": ["warn", "single"],
+        "jsx-quotes": ["warn"],
+        "semi": ["error", "always"],
+        "no-trailing-spaces": ["warn"],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 1,
+                "maxEOF": 1
+            }
+        ],
+        "react/prop-types": [
+            "warn",
+            {
+                "skipUndeclared": true
+            }
+        ],
+        "react/self-closing-comp": ["warn"],
+        "react/sort-comp": [
+            "warn",
+            {
+                "order": ["static-methods", "instance-variables", "lifecycle", "everything-else", "render"]
+            }
+        ],
+        "react/no-unsafe": ["warn"],
+        "react/jsx-key": ["warn"],
+        "react/jsx-props-no-multi-spaces": ["warn"],
+        "react/jsx-curly-spacing": ["warn"],
+        "react/jsx-tag-spacing": [
+            "warn",
+            {
+                "afterOpening": "never"
+            }
+        ],
+        "react/jsx-wrap-multilines": [
+            "warn",
+            {
+                "declaration": "parens-new-line",
+                "assignment": "parens-new-line",
+                "return": "parens-new-line",
+                "arrow": "parens-new-line",
+                "logical": "parens-new-line",
+                "condition": "parens-new-line",
+                "prop": "parens-new-line"
+            }
+        ]
+    }
+}
