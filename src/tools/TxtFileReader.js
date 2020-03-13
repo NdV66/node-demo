@@ -3,7 +3,7 @@ const DEFAULT_PORT = 3456;
 
 const defaultOnError = err => console.log(err);
 
-const readDataFromTxtFile = (path, callback, onError = defaultOnError) => {
+const readDataFromFile = (path, callback, onError = defaultOnError) => {
     fs.readFile(path, 'utf8', (err, data) => {
         if (err) {
             onError(err);
@@ -16,7 +16,7 @@ const readDataFromTxtFile = (path, callback, onError = defaultOnError) => {
 const onReadPortError = callback => callback(DEFAULT_PORT);
 
 const readPortFromTxtFile = (path, callback) => {
-    readDataFromTxtFile(path, callback, onReadPortError);
+    readDataFromFile(path, callback, onReadPortError);
 };
 
-module.exports = { readDataFromTxtFile, readPortFromTxtFile };
+module.exports = { readDataFromFile, readPortFromTxtFile };
