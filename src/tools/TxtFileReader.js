@@ -1,14 +1,22 @@
 const fs = require('fs');
 const DEFAULT_PORT = 3456;
 
-const readDataFromTxtFile = (path, callback) => {
+const defaultOnError = err => console.log(err);
+
+const readDataFromTxtFile = (path, callback, onError = defaultOnError) => {
     fs.readFile(path, 'utf8', (err, data) => {
         if (err) {
-            callback(DEFAULT_PORT);
+            onError(err);
         } else {
             callback(data);
         }
     });
 };
 
-module.exports = { readDataFromTxtFile };
+const onReadPortError = callback => callback(DEFAULT_PORT);
+
+const readPortFromTxtFile = (path, callback) => {
+    readDataFromTxtFile(path, callback, onReadPortError);
+};
+
+module.exports = { readDataFromTxtFile, readPortFromTxtFile };
