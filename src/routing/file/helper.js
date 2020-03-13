@@ -14,9 +14,9 @@ const getFilesizeInBytes = path => {
     return fileSizeInBytes;
 };
 
-const getFilenames = (path, callback) => {
+const getFilenames = (path, callback, filter = () => true) => {
     fs.readdir(path, (err, files) => {
-        const namedFiles = files.map(file => ({ name: file }));
+        const namedFiles = files.filter(filter).map(file => ({ name: file }));
         callback(namedFiles);
     });
 };

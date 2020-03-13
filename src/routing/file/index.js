@@ -34,5 +34,18 @@ module.exports = basePath => {
         getFilenamesWithSizes(basePath, callback);
     });
 
+    router.get('/txt', (req, res) => {
+        const filter = fileName => /.*\.txt/.test(fileName);
+        const callback = filenames => {
+            const data = filenames
+                .map(el => el.name)
+                .map(name => fs.readFileSync(`${basePath}/${name}`).toString())
+                .join('');
+
+            res.json(data);
+        };
+        getFilenames(basePath, callback, filter);
+    });
+
     return router;
 };
