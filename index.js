@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
-const DEFAULT_PORT = 3456;
-const port = DEFAULT_PORT;
 
-app.listen(port, () => console.log(`Node demo is listing on port: ${port}!`));
+const { readDataFromTxtFile } = require('./src/tools/TxtFileReader');
+
+const setupApp = port => {
+    app.listen(port, () => console.log(`Node demo is listing on port: ${port}!`));
+};
+
+readDataFromTxtFile('./data/port.txt', setupApp);
