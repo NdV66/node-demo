@@ -11,9 +11,16 @@ const sendFileAsyncAsPlainText = (res, file, basePath) => {
 };
 
 const getFilesizeInBytes = path => {
-    var stats = fs.statSync(path);
-    var fileSizeInBytes = stats['size'];
+    const stats = fs.statSync(path);
+    const fileSizeInBytes = stats['size'];
     return fileSizeInBytes;
+};
+
+const getFilenames = (path, callback) => {
+    fs.readdir(path, (err, files) => {
+        const namedFiles = files.map(file => ({ name: file }));
+        callback(namedFiles);
+    });
 };
 
 module.exports = basePath => {
@@ -34,6 +41,11 @@ module.exports = basePath => {
         const size = getFilesizeInBytes(path);
 
         res.json({ size });
+    });
+
+    router.get('/filenames', (req, res) => {
+        const callback = data => res.json(data);
+        getFilenames(basePath, callback);
     });
 
     return router;
