@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('promise-fs');
-const { processValueFromFile, removeTxtExtension } = require('./helper');
+const { convertBuffersToString, removeTxtExtension } = require('./helper');
 
 const waitForAll = promises => Promise.all(promises);
-
-const convertBuffersToString = buffers => buffers.map(processValueFromFile);
 
 const prepareDataToSend = (values, data) =>
     values.map((value, index) => ({
