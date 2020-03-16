@@ -1,6 +1,10 @@
 {
-    "data": {
-        "values": [1, 2, 3],
-        "file": "json-b.json"
-    }
+  "data": {
+    "values": [
+      1,
+      2,
+      3
+    ],
+    "file": "json-b.json"
+  }
 }

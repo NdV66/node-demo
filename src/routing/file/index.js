@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 
-const { sendFileAsyncAsPlainText, getFilenames, getFilenamesWithSizes, getFilesizeInBytes } = require('./helper');
+const { sendFileAsyncAsPlainText, getFilenames, getFilenamesWithSizes, getFileSizeInBytes } = require('../helper');
 
 module.exports = basePath => {
     const FILE_A_RESPONSE = fs.readFileSync(`${basePath}/file-a.txt`).toString();
@@ -19,7 +19,7 @@ module.exports = basePath => {
     router.get('/size', (req, res) => {
         const fileName = req.query.name;
         const path = `${basePath}/${fileName}`;
-        const size = getFilesizeInBytes(path);
+        const size = getFileSizeInBytes(path);
 
         res.json({ size });
     });

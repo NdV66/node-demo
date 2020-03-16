@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { readDataFromFile } = require('../../tools/TxtFileReader');
+const { readDataFromFile } = require('../tools/TxtFileReader');
 
 const sendFileAsyncAsPlainText = (res, file, basePath) => {
     const path = `${basePath}/${file}`;
@@ -8,9 +8,10 @@ const sendFileAsyncAsPlainText = (res, file, basePath) => {
     readDataFromFile(path, callback, onError);
 };
 
-const getFilesizeInBytes = path => {
+const getFileSizeInBytes = path => {
     const stats = fs.statSync(path);
     const fileSizeInBytes = stats['size'];
+
     return fileSizeInBytes;
 };
 
@@ -23,9 +24,9 @@ const getFilenames = (path, callback, filter = () => true) => {
 
 const getFilenamesWithSizes = (path, callback) => {
     fs.readdir(path, (err, files) => {
-        const namedFiles = files.map(name => ({ name, size: getFilesizeInBytes(`${path}/${name}`) }));
+        const namedFiles = files.map(name => ({ name, size: getFileSizeInBytes(`${path}/${name}`) }));
         callback(namedFiles);
     });
 };
 
-module.exports = { sendFileAsyncAsPlainText, getFilenames, getFilenamesWithSizes, getFilesizeInBytes };
+module.exports = { sendFileAsyncAsPlainText, getFilenames, getFilenamesWithSizes, getFileSizeInBytes };
